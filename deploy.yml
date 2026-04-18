@@ -19,6 +19,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/nodejsapp
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
             npm install --production
-            pm2 restart nodejsapp
+            pm2 restart nodejsapp || pm2 start server.js --name "nodejsapp"
